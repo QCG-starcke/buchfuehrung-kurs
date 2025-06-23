@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)file:///C:/Users/renes/Downloads/M04_W02_T01_Live_Fullscreen.html -->
+<html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debitorenbuchhaltung Grundlagen - Vollbild</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f4ff 50%, #ffffff 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            width: 100vw;
+            min-height: 100vh;
+            padding: 40px 60px;
+            position: relative;
+            display: none;
+            border: 1px solid #dde7f7;
+            page-break-after: always;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><circle cx="200" cy="100" r="80" fill="%23e8f0ff" opacity="0.6"/><circle cx="250" cy="180" r="60" fill="%23d4e4ff" opacity="0.5"/><circle cx="150" cy="220" r="70" fill="%23f0f4ff" opacity="0.7"/></svg>') no-repeat;
+            background-size: contain;
+            z-index: 0;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .erfolgspfad-logo {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1e3c72;
+            z-index: 2;
+        }
+
+        .erfolgspfad-logo::after {
+            content: '→';
+            color: #1e3c72;
+            font-size: 1.4em;
+            margin-left: 8px;
+            transform: rotate(-15deg);
+            display: inline-block;
+        }
+
+        .module-info {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(30, 60, 114, 0.1);
+            color: #1e3c72;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 4px solid #1e3c72;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        h2 {
+            background: #1e3c72;
+            color: white;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            padding: 20px 30px;
+            border-radius: 0;
+            font-weight: 600;
+            text-transform: none;
+        }
+
+        h3 {
+            color: #1e3c72;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        ul {
+            margin-left: 30px;
+            margin-bottom: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+            font-size: 1.2em;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: #e8f0ff;
+            padding: 30px;
+            border-radius: 0;
+            margin: 30px 0;
+            border-left: 8px solid #1e3c72;
+            border-right: 1px solid #dde7f7;
+            border-top: 1px solid #dde7f7;
+            border-bottom: 1px solid #dde7f7;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 30px;
+            border-radius: 0;
+            border: 2px solid #dde7f7;
+            border-left: 6px solid #1e3c72;
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.1);
+        }
+
+        .checklist {
+            background: #e8f5e8;
+            border: 2px solid #c3e6cb;
+            border-left: 6px solid #28a745;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .checklist li {
+            list-style: none;
+            position: relative;
+            padding-left: 35px;
+            font-size: 1.2em;
+        }
+
+        .checklist li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2em;
+        }
+
+        .online-note {
+            background: #f0f4ff;
+            border: 2px solid #c5d9ff;
+            border-left: 6px solid #1e3c72;
+            padding: 25px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .title-slide {
+            text-align: center;
+            justify-content: space-between;
+            align-items: center;
+            padding: 80px 60px 60px 60px;
+        }
+
+        .title-slide h1 {
+            font-size: 3.8em;
+            margin-bottom: 40px;
+            border: none;
+            line-height: 1.2;
+        }
+
+        .title-slide .subtitle {
+            font-size: 1.8em;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .title-slide .meta {
+            color: #888;
+            font-size: 1.3em;
+            font-weight: 400;
+            margin-bottom: 60px;
+        }
+
+        .title-slide .online-note {
+            margin-top: 40px;
+            margin-bottom: 80px;
+            font-size: 1em;
+            position: relative;
+            z-index: 5;
+        }
+
+        .company-info {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            color: #888;
+            font-size: 0.85em;
+            line-height: 1.3;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .company-info strong {
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #0f2347;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            background: rgba(30, 60, 114, 0.9);
+            color: white;
+            padding: 8px 20px;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        @media print {
+            .slide {
+                display: block !important;
+                min-height: 90vh;
+                page-break-after: always;
+            }
+            .navigation, .slide-number {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-number">
+        <span id="current-slide-num">1</span> / <span id="total-slides-num">9</span>
+    </div>
+
+    <!-- Folie 1: Titel -->
+    <div class="slide title-slide active">
+        <div class="module-info">Modul 4 • Woche 2 • Tag 1</div>
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        
+        <div class="slide-content">
+            <h1>Debitorenbuchhaltung Grundlagen</h1>
+            <div class="subtitle">Forderungsmanagement professionell gestalten</div>
+            <div class="meta">Live-Schulung • 45 Minuten</div>
+        </div>
+            
+        <div class="online-note">
+            <strong>💻 Online-Moderation:</strong><br>
+            Willkommen zur Debitorenbuchhaltung! • Chat für Fragen nutzen • "Heute lernen Sie, wie Sie Ihre Forderungen systematisch verwalten und das Zahlungsverhalten optimieren"
+        </div>
+
+        <div class="company-info">
+            <strong>ERFOLGSPFAD GmbH</strong><br>
+            Unternehmensberatung<br>
+            📧 Hinüberstr. 4 • 30175 Hannover<br>
+            📞 0800 99 99 399 &nbsp;&nbsp; 🌐 erfolgspfad.de
+        </div>
+    </div>
+
+    <!-- Folie 2: Lernziele -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Lernziele heute</h2>
+            
+            <h3>Nach dieser Schulung können Sie:</h3>
+            <ul class="checklist">
+                <li>Debitorenstammdaten korrekt anlegen und pflegen</li>
+                <li>Ausgangsrechnungen systematisch verwalten</li>
+                <li>Offene Posten überwachen und kontrollieren</li>
+                <li>Zahlungseingänge korrekt zuordnen</li>
+                <li>Basis-Mahnverfahren verstehen</li>
+            </ul>
+
+            <div class="highlight">
+                <h3>🎯 Praxisnutzen:</h3>
+                <p>Sie reduzieren Zahlungsausfälle und verbessern Ihre Liquidität durch professionelles Forderungsmanagement!</p>
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> Chat-Frage: "Wie viele offene Forderungen haben Sie aktuell in Ihrem Unternehmen? Grober Schätzwert reicht!"
+            </div>
+        </div>
+    </div>
+
+    <!-- Folie 3: Was ist Debitorenbuchhaltung? -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Was ist Debitorenbuchhaltung?</h2>
+            
+            <div class="highlight">
+                <h3>Definition:</h3>
+                <p><strong>Debitorenbuchhaltung</strong> = Verwaltung aller Forderungen gegenüber Kunden (Debitoren)</p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>📋 Stammdaten</h3>
+                    <ul>
+                        <li>Kundenanlage</li>
+                        <li>Zahlungsbedingungen</li>
+                        <li>Kreditlimits</li>
+                        <li>Kontaktdaten</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>📄 Rechnungswesen</h3>
+                    <ul>
+                        <li>Ausgangsrechnungen</li>
+                        <li>Gutschriften</li>
+                        <li>Stornierungen</li>
+                        <li>Teilrechnungen</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>💰 Zahlungsverkehr</h3>
+                    <ul>
+                        <li>Zahlungseingänge</li>
+                        <li>Kontoauszüge</li>
+                        <li>Zuordnungen</li>
+                        <li>Differenzen</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>📊 Controlling</h3>
+                    <ul>
+                        <li>Offene Posten</li>
+                        <li>Fälligkeiten</li>
+                        <li>Mahnwesen</li>
+                        <li>Ausfallrisiken</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> "Welcher Bereich bereitet Ihnen die meisten Probleme? Schreiben Sie 1-4 in den Chat!"
+            </div>
+        </div>
+    </div>
+
+    <!-- Folie 5: Ausgangsrechnungen verwalten -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Ausgangsrechnungen systematisch verwalten</h2>
+            
+            <h3>📋 Rechnungserstellung Workflow:</h3>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>1️⃣ Rechnungsdaten</h3>
+                    <ul>
+                        <li>Eindeutige Rechnungsnummer</li>
+                        <li>Leistungsdatum</li>
+                        <li>Rechnungsdatum</li>
+                        <li>Fälligkeitsdatum</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>2️⃣ Buchung</h3>
+                    <ul>
+                        <li>Debitor belasten</li>
+                        <li>Umsatzerlöse buchen</li>
+                        <li>Umsatzsteuer erfassen</li>
+                        <li>Kostenstelle zuordnen</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>💼 Buchungsbeispiel: Beratungsleistung</h3>
+            <div class="code-block">
+Rechnung Nr. 2024-1001 an Müller GmbH
+Beratungsleistung: €5.000 netto + €950 USt = €5.950 brutto
+Zahlungsziel: 30 Tage (fällig am 15.01.2025)
+
+Buchungssatz:
+Forderungen a.LL Müller GmbH (10001)    5.950,00 €
+    an Umsatzerlöse Beratung (8400)              5.000,00 €
+    an Umsatzsteuer 19% (3806)                     950,00 €
+
+Buchungstext: "Beratung Nov 2024 Rg.2024-1001"
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> Bildschirmfreigabe: Live-Demo in Lexware • "So erfassen Sie eine Ausgangsrechnung Schritt für Schritt"
+            </div>
+        </div>
+    </div>
+
+    <!-- Folie 6: Offene Posten überwachen -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Offene Posten effektiv überwachen</h2>
+            
+            <div class="highlight">
+                <h3>🎯 Ziel:</h3>
+                <p>Jeden Tag wissen, welche Forderungen offen sind und wann Zahlungen fällig werden!</p>
+            </div>
+
+            <h3>📊 Offene-Posten-Liste erstellen:</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>🔍 Filterkriterien</h3>
+                    <ul>
+                        <li>Nur offene Posten</li>
+                        <li>Sortierung nach Fälligkeit</li>
+                        <li>Debitor-Gruppe</li>
+                        <li>Mindestbetrag</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>📋 Spalten anzeigen</h3>
+                    <ul>
+                        <li>Debitorenname</li>
+                        <li>Rechnungsnummer</li>
+                        <li>Rechnungsdatum</li>
+                        <li>Fälligkeitsdatum</li>
+                        <li>Offener Betrag</li>
+                        <li>Tage überfällig</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>⚠️ Kritische Kennzahlen im Blick behalten:</h3>
+            <div class="code-block">
+Gesamtsumme offener Forderungen:      €125.750
+Davon überfällig:                     €23.400  (18,6%)
+Davon &gt; 30 Tage überfällig:          €8.900   (7,1%)
+Anzahl offener Posten:               47
+Älteste Forderung:                   89 Tage (kritisch!)
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> "Wie oft schauen Sie auf Ihre offenen Posten? Täglich, wöchentlich oder monatlich?"
+            </div>
+        </div>
+    </div>
+
+    <!-- Folie 7: Zahlungseingänge zuordnen -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Zahlungseingänge korrekt zuordnen</h2>
+            
+            <h3>🏦 Kontoauszug-Verarbeitung:</h3>
+            
+            <h3>✅ Einfache Zuordnung (Idealfall):</h3>
+            <div class="code-block">
+Zahlungseingang: €5.950
+Verwendungszweck: "Rechnung 2024-1001"
+→ Automatische Zuordnung möglich
+
+Buchung:
+Bank                           5.950,00 €
+    an Forderungen Müller GmbH         5.950,00 €
+
+Buchungstext: "Zahlung Rg.2024-1001"
+            </div>
+
+            <h3>🔍 Komplexe Zuordnung:</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>💸 Skonto-Zahlung</h3>
+                    <div class="code-block">
+Rechnung: €5.950
+Zahlung: €5.831 (2% Skonto)
+
+Bank                    5.831,00 €
+Skontoaufwand            119,00 €
+    an Forderungen           5.950,00 €
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <h3>📝 Teilzahlung</h3>
+                    <div class="code-block">
+Rechnung: €5.950
+Zahlung: €3.000 (Teilbetrag)
+
+Bank                    3.000,00 €
+    an Forderungen           3.000,00 €
+
+Restforderung: €2.950
+                    </div>
+                </div>
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> "Welche Art von Zahlungen bereitet Ihnen am meisten Schwierigkeiten bei der Zuordnung?"
+            </div>
+        </div>
+    </div>
+
+    <!-- Folie 8: Mahnwesen Grundlagen -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Mahnwesen - Die Basics</h2>
+            
+            <h3>📅 Typisches Mahnverfahren:</h3>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>1️⃣ Zahlungserinnerung</h3>
+                    <ul>
+                        <li><strong>Wann:</strong> 5-10 Tage nach Fälligkeit</li>
+                        <li><strong>Ton:</strong> Freundlich, höflich</li>
+                        <li><strong>Kosten:</strong> Keine</li>
+                        <li><strong>Zweck:</strong> Aufmerksamkeit</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>2️⃣ 1. Mahnung</h3>
+                    <ul>
+                        <li><strong>Wann:</strong> 10-14 Tage später</li>
+                        <li><strong>Ton:</strong> Bestimmt, sachlich</li>
+                        <li><strong>Kosten:</strong> €5-10 Mahngebühr</li>
+                        <li><strong>Zweck:</strong> Zahlungsaufforderung</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>3️⃣ 2. Mahnung</h3>
+                    <ul>
+                        <li><strong>Wann:</strong> 14 Tage nach 1. Mahnung</li>
+                        <li><strong>Ton:</strong> Deutlich, ernst</li>
+                        <li><strong>Kosten:</strong> €10-20 Mahngebühr</li>
+                        <li><strong>Zweck:</strong> Letzte Warnung</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>4️⃣ Inkasso/Klage</h3>
+                    <ul>
+                        <li><strong>Wann:</strong> Nach erfolgloser 2. Mahnung</li>
+                        <li><strong>Ton:</strong> Rechtlich</li>
+                        <li><strong>Kosten:</strong> Je nach Verfahren</li>
+                        <li><strong>Zweck:</strong> Rechtsdurchsetzung</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>⚖️ Rechtliche Grundlagen:</h3>
+            <div class="highlight">
+                <ul>
+                    <li><strong>Verzug:</strong> Automatisch bei Fälligkeitsüberschreitung</li>
+                    <li><strong>Mahngebühren:</strong> Angemessen und nachweisbar</li>
+                    <li><strong>Verzugszinsen:</strong> Basiszins + 8% (B2B) oder + 5% (B2C)</li>
+                </ul>
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> "Ab welcher Summe mahnen Sie? Gibt es bei Ihnen Mindestbeträge?"
+            </div>
+        </div>
+    </div>
+
+    <!-- Folie 9: Häufige Probleme und Lösungen -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Häufige Probleme und Lösungen</h2>
+            
+            <h3>❌ Problem vs. ✅ Lösung:</h3>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>Problem: Unklare Zahlungseingänge</h3>
+                    <p><strong>❌</strong> Kunde überweist ohne Rechnungsnummer</p>
+                    <p><strong>✅ Lösung:</strong></p>
+                    <ul>
+                        <li>Verwendungszweck vorschreiben</li>
+                        <li>QR-Code auf Rechnungen</li>
+                        <li>Regelmäßige Telefonabstimmung</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>Problem: Verzögerte Zahlungen</h3>
+                    <p><strong>❌</strong> Kunde zahlt systematisch zu spät</p>
+                    <p><strong>✅ Lösung:</strong></p>
+                    <ul>
+                        <li>Kreditlimit reduzieren</li>
+                        <li>Vorauszahlung vereinbaren</li>
+                        <li>Zahlungsziel verkürzen</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>Problem: Disputed Invoices</h3>
+                    <p><strong>❌</strong> Kunde bestreitet Rechnung</p>
+                    <p><strong>✅ Lösung:</strong></p>
+                    <ul>
+                        <li>Sofortige Klärung anstreben</li>
+                        <li>Dokumentation bereithalten</li>
+                        <li>Teilzahlungen akzeptieren</li>
+                        <li>Kompromisse finden</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>Problem: Dubletten und Fehler</h3>
+                    <p><strong>❌</strong> Doppelte Rechnungen oder Zahlungen</p>
+                    <p><strong>✅ Lösung:</strong></p>
+                    <ul>
+                        <li>4-Augen-Prinzip einführen</li>
+                        <li>Automatische Plausibilitätsprüfung</li>
+                        <li>Regelmäßige Kontenabstimmung</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>💡 Profi-Tipp:</h3>
+                <p>Führen Sie ein "Problemkunden-Register" mit Notizen zu Zahlungsverhalten und besonderen Vereinbarungen!</p>
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> "Welches Problem kommt bei Ihnen am häufigsten vor? Teilen Sie Ihre Erfahrungen!"
+            </div>
+        </div>
+    </div>
+
+    <!-- Folie 10: Zusammenfassung und nächste Schritte -->
+    <div class="slide">
+        <div class="erfolgspfad-logo">ERFOLGSPFAD</div>
+        <div class="slide-content">
+            <h2>Zusammenfassung &amp; Ihre nächsten Schritte</h2>
+            
+            <div class="highlight">
+                <h3>🎯 Das haben Sie heute gelernt:</h3>
+            </div>
+            
+            <div class="checklist">
+                <li><strong>Debitorenstammdaten:</strong> Vollständig und strukturiert anlegen</li>
+                <li><strong>Ausgangsrechnungen:</strong> Korrekt buchen und verwalten</li>
+                <li><strong>Offene Posten:</strong> Systematisch überwachen und kontrollieren</li>
+                <li><strong>Zahlungseingänge:</strong> Präzise zuordnen und verbuchen</li>
+                <li><strong>Mahnwesen:</strong> Rechtssicher und effektiv durchführen</li>
+            </div>
+
+            <h3>🚀 Sofort umsetzbar in Ihrer Praxis:</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>Diese Woche</h3>
+                    <ul>
+                        <li>Debitorenstammdaten überprüfen</li>
+                        <li>Offene-Posten-Liste erstellen</li>
+                        <li>Überfällige Forderungen identifizieren</li>
+                    </ul>
+                </div>
+
+                <div class="tip-card">
+                    <h3>Nächster Monat</h3>
+                    <ul>
+                        <li>Mahnverfahren standardisieren</li>
+                        <li>Kreditlimits überprüfen</li>
+                        <li>Zahlungsbedingungen optimieren</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📚 Weiterführende Materialien:</h3>
+            <div class="highlight">
+                <ul>
+                    <li><strong>FAQ-Dokument:</strong> Antworten auf häufige Debitorenfragen</li>
+                    <li><strong>Selbststudium:</strong> Vertiefung mit praktischen Übungen (3x45 Min)</li>
+                    <li><strong>Checklisten:</strong> Vorlagen für Ihren Arbeitsalltag</li>
+                </ul>
+            </div>
+
+            <div class="online-note">
+                <strong>Online-Moderation:</strong> "Was setzen Sie als erstes um? Schreiben Sie Ihren ersten Schritt in den Chat!" • Überleitung zur FAQ-Session
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled="">◀ Zurück</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Weiter ▶</button>
+        <button class="nav-btn" onclick="toggleFullscreen()">Vollbild</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides-num').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide-num').textContent = currentSlide + 1;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Tastatur-Navigation
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    changeSlide(-1);
+                    break;
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'Home':
+                    showSlide(0);
+                    break;
+                case 'End':
+                    showSlide(totalSlides - 1);
+                    break;
+            }
+        });
+
+        showSlide(0);
+    </script>
+
+</body></html>
